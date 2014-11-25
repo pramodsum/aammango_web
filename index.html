@@ -2,60 +2,47 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>PocketSphinx.js</title>
+    <title>AamMango</title>
+
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="css/layouts/side-menu-old-ie.css">
+<![endif]-->
+<!--[if gt IE 8]><!-->
+    <link rel="stylesheet" href="css/layouts/side-menu.css">
+<!--<![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
-    <h2>Log</h2>
-    <pre id="log"></pre>
 
-    <script>
-      function __log(e, data) {
-      log.innerHTML += "\n" + e + " " + (data || '');
-      }
+    <div>
 
-      window.onload = function init() {
-      var output;
-      __log("Starting init");
-      __log("Creating PS object");
-      ps = new PS();
-      __log("Querrying initial state");
-      output = ps.getState();
-      __log("Initial state: " + output);
-      __log("Querrying initial hyp");
-      output = ps.getHyp();
-      __log("Initial hyp: " + output);
-      __log("About to initialize");
-      output = ps.initialize();
-      __log("Initialize returned: " + output);
-      output = ps.getState();
-      __log("New state: " + output);
-      __log("About to add word HELLO");
-      output = ps.addWord("HELLO", "AH OW");
-      __log("Returned: " + output);
-      __log("About to add word WORLD");
-      output = ps.addWord("WORLD", "IH P");
-      __log("Returned: " + output);
-      output = ps.getState();
-      __log("New state: " + output);
-      __log("About to start grammar");
-      output = ps.startGrammar(3);
-      __log("Returned: " + output);
-      output = ps.getState();
-      __log("New state: " + output);
-      __log("About to add transtions");
-      output = ps.addTransition(0, 1, "HELLO");
-      __log("Returned: " + output);
-      output = ps.addTransition(1, 2, "WORLD");
-      __log("Returned: " + output);
-      __log("About to stop grammar");
-      output = ps.endGrammar();
-      __log("Returned: " + output);
-      output = ps.getState();
-      __log("New state: " + output);
-      __log("Done init");
-      }
-    </script>
-    <script src="js/webapp.js"></script>
-    <script src="js/pocketsphinx.js"></script>
+        <div id="main">
+            <div class="header">
+                <h1>AamMango</h1>
+                <h2>Web Speech Recognizer</h2>
+            </div>
+
+            <div class="content">
+                <h2 class="content-subhead">How to use this layout</h2>
+                <p>
+                  <select class="form-control" id="grammars"></select>
+                  <button class="pure-button pure-button-primary" id="startBtn">Start</button>
+                  <button class="pure-button pure-button-primary" id="stopBtn">Stop</button>
+                  <span id="recording-indicator" style="border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; width: 20px; height: 20px; background: red;"></span>
+                  <h2>Recognition Output</h2>
+                  <div id="output" style="height:150px;overflow:auto;" >
+                  </div>
+                  <h2>Status</h2>
+                  <div id="current-status">Loading page</div>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script src="js/script.js"></script>
+    <!-- These are the two JavaScript files you must load in the HTML,
+    The recognizer is loaded through a Web Worker -->
+    <script src="js/audioRecorder.js"></script>
+    <script src="js/callbackManager.js"></script>
   </body>
 </html>
