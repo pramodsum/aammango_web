@@ -61,6 +61,16 @@ var stopRecording = function() {
   recorder && recorder.stop();
   displayRecording(false);
 };
+
+var updateWordList = function() {
+  var id = document.getElementById('grammars').value;
+  var words = "";
+  for(var i = 0; i < grammars[id].g.transitions.length; i++) {
+    words += "<li>" + grammars[id].g.transitions[i].text + "</li>";
+  }
+  wordsContainer.innerHTML = words;
+}
+
 // Called once the recognizer is ready
 // We then add the grammars to the input select tag and update the UI
 var recognizerReady = function() {
@@ -68,6 +78,7 @@ var recognizerReady = function() {
      recognizerReady = true;
      updateUI();
      updateStatus("Recognizer ready");
+     updateWordList();
 };
 // We get the grammars defined below and fill in the input select tag
 var updateGrammars = function() {
@@ -77,7 +88,7 @@ var updateGrammars = function() {
       newElt.value=grammarIds[i].id;
       newElt.innerHTML = grammarIds[i].title;
       selectTag.appendChild(newElt);
-  }                          
+  }
 };
 // This adds a grammar from the grammars array
 // We add them one by one and call it again as
@@ -111,6 +122,7 @@ var initRecognizer = function() {
 // request access to the microphone
 window.onload = function() {
   outputContainer = document.getElementById("output");
+  wordsContainer = document.getElementById("words");
   updateStatus("Initializing web audio and speech recognizer, waiting for approval to access the microphone");
   callbackManager = new CallbackManager();
   spawnWorker("js/recognizer.js", function(worker) {
@@ -165,141 +177,139 @@ var wordList = [["aat", "aa t:h sp"], ["achaar", " a ch aa r sp"], ["adai", " a 
 
 var gram_appetizer = {
   numStates: 1, start: 0, end: 0, transitions: [
-  {from: 0, to: 0, word: "bonda"},
-  {from: 0, to: 0, word: "manchurian"},
-  {from: 0, to: 0, word: "pakora"},
-  {from: 0, to: 0, word: "papad"},
-  {from: 0, to: 0, word: "samosa"},
-  {from: 0, to: 0, word: "vada"}
+  {from: 0, to: 0, word: "bonda", text: "Bonda"},
+  {from: 0, to: 0, word: "manchurian", text: "Manchurian"},
+  {from: 0, to: 0, word: "pakora", text: "Pakora"},
+  {from: 0, to: 0, word: "papad", text: "Papad"},
+  {from: 0, to: 0, word: "samosa", text: "Samosa"},
+  {from: 0, to: 0, word: "vada", text: "Vada"}
 ]};
 
 var gram_beverages = {
   numStates: 1, start: 0, end: 0, transitions: [
-  {from: 0, to: 0, word: "lassi"}
+  {from: 0, to: 0, word: "lassi", text: "Lassi"}
 ]};
 
 var gram_breads = {
   numStates: 1, start: 0, end: 0, transitions: [
-  {from: 0, to: 0, word: "batura"},
-  {from: 0, to: 0, word: "kulcha"},
-  {from: 0, to: 0, word: "naan"},
-  {from: 0, to: 0, word: "paratha"},
-  {from: 0, to: 0, word: "poori"},
-  {from: 0, to: 0, word: "roti"}
+  {from: 0, to: 0, word: "batura", text: "Batura"},
+  {from: 0, to: 0, word: "kulcha", text: "Kulcha"},
+  {from: 0, to: 0, word: "naan", text: "Naan"},
+  {from: 0, to: 0, word: "paratha", text: "Paratha"},
+  {from: 0, to: 0, word: "poori", text: "Puri"},
+  {from: 0, to: 0, word: "roti", text: "Roti"}
 ]};
 
 var gram_curries = {
   numStates: 1, start: 0, end: 0, transitions: [
-  {from: 0, to: 0, word: "bagara"},
-  {from: 0, to: 0, word: "bartha"},
-  {from: 0, to: 0, word: "chettinand"},
-  {from: 0, to: 0, word: "gosht"},
-  {from: 0, to: 0, word: "makhani"},
-  {from: 0, to: 0, word: "navratan"},
-  {from: 0, to: 0, word: "pasanda"},
-  {from: 0, to: 0, word: "tadka"},
-  {from: 0, to: 0, word: "tikka"},
-  {from: 0, to: 0, word: "vindaloo"}
+  {from: 0, to: 0, word: "bagara", text: "Bagara"},
+  {from: 0, to: 0, word: "bartha", text: "Bartha"},
+  {from: 0, to: 0, word: "chettinand", text: "Chettinand"},
+  {from: 0, to: 0, word: "gosht", text: "Gosht"},
+  {from: 0, to: 0, word: "makhani", text: "Makhani"},
+  {from: 0, to: 0, word: "navratan", text: "Navratan"},
+  {from: 0, to: 0, word: "pasanda", text: "Pasanda"},
+  {from: 0, to: 0, word: "tadka", text: "Tadka"},
+  {from: 0, to: 0, word: "tikka", text: "Tikka"},
+  {from: 0, to: 0, word: "vindaloo", text: "Vindaloo"}
 ]};
 
 var gram_desserts = {
   numStates: 1, start: 0, end: 0, transitions: [
-  {from: 0, to: 0, word: "gulabjamun"},
-  {from: 0, to: 0, word: "halwa"},
-  {from: 0, to: 0, word: "kheer"},
-  {from: 0, to: 0, word: "payasam"},
-  {from: 0, to: 0, word: "kulfi"},
-  {from: 0, to: 0, word: "rasmalai"}
+  {from: 0, to: 0, word: "gulabjamun", text: "Gulab Jamun"},
+  {from: 0, to: 0, word: "halwa", text: "Halwa"},
+  {from: 0, to: 0, word: "kheer", text: "Kheer"},
+  {from: 0, to: 0, word: "payasam", text: "Payasam"},
+  {from: 0, to: 0, word: "kulfi", text: "Kulfi"},
+  {from: 0, to: 0, word: "rasmalai", text: "Rasmalai"}
 ]};
 
 var gram_none = {
   numStates: 1, start: 0, end: 0, transitions: [
-  {from: 0, to: 0, word: "kadai"},
-  {from: 0, to: 0, word: "keema"},
-  {from: 0, to: 0, word: "lachcha"},
-  {from: 0, to: 0, word: "shahi"},
-  {from: 0, to: 0, word: "kurma"},
-  {from: 0, to: 0, word: "malai"},
-  {from: 0, to: 0, word: "kofta"},
-  {from: 0, to: 0, word: "dopyaz"},
-  {from: 0, to: 0, word: "pudina"},
-  {from: 0, to: 0, word: "rava"},
-  {from: 0, to: 0, word: "tandoor"},
-  {from: 0, to: 0, word: "seekh"},
-  {from: 0, to: 0, word: "boti"},
-  {from: 0, to: 0, word: "tangri"}
+  {from: 0, to: 0, word: "kadai", text: "Kadai"},
+  {from: 0, to: 0, word: "keema", text: "Keema"},
+  {from: 0, to: 0, word: "lachcha", text: "Lachcha"},
+  {from: 0, to: 0, word: "shahi", text: "Shahi"},
+  {from: 0, to: 0, word: "kurma", text: "Kurma"},
+  {from: 0, to: 0, word: "malai", text: "Malai"},
+  {from: 0, to: 0, word: "kofta", text: "Kofta"},
+  {from: 0, to: 0, word: "dopyaz", text: "DoPyaz"},
+  {from: 0, to: 0, word: "pudina", text: "Pudina"},
+  {from: 0, to: 0, word: "rava", text: "Rava"},
+  {from: 0, to: 0, word: "tandoor", text: "Tandoor"},
+  {from: 0, to: 0, word: "seekh", text: "Seekh"},
+  {from: 0, to: 0, word: "boti", text: "Boti"},
+  {from: 0, to: 0, word: "tangri", text: "Tangri"}
 ]};
 
 var gram_number = {
   numStates: 1, start: 0, end: 0, transitions: [
-  {from: 0, to: 0, word: "ek"},
-  {from: 0, to: 0, word: "do"},
-  {from: 0, to: 0, word: "theen"},
-  {from: 0, to: 0, word: "chaar"},
-  {from: 0, to: 0, word: "paanch"},
-  {from: 0, to: 0, word: "che"},
-  {from: 0, to: 0, word: "saath"},
-  {from: 0, to: 0, word: "aat"},
-  {from: 0, to: 0, word: "nau"},
-  {from: 0, to: 0, word: "dus"}
+  {from: 0, to: 0, word: "ek", text: "Ek"},
+  {from: 0, to: 0, word: "do", text: "Do"},
+  {from: 0, to: 0, word: "theen", text: "Theen"},
+  {from: 0, to: 0, word: "chaar", text: "Chaar"},
+  {from: 0, to: 0, word: "paanch", text: "Paanch"},
+  {from: 0, to: 0, word: "che", text: "Che"},
+  {from: 0, to: 0, word: "saath", text: "Saath"},
+  {from: 0, to: 0, word: "aat", text: "Aat"},
+  {from: 0, to: 0, word: "nau", text: "Nau"},
+  {from: 0, to: 0, word: "dus", text: "Dus"}
 ]};
 
 var gram_proteins = {
   numStates: 1, start: 0, end: 0, transitions: [
-  {from: 0, to: 0, word: "badam"},
-  {from: 0, to: 0, word: "murg"},
-  {from: 0, to: 0, word: "kaaju"}
+  {from: 0, to: 0, word: "badam", text: "Bada"},
+  {from: 0, to: 0, word: "murg", text: "Murg"},
+  {from: 0, to: 0, word: "kaaju", text: "Kaaju"}
 ]};
 
 var gram_rice = {
   numStates: 1, start: 0, end: 0, transitions: [
-  {from: 0, to: 0, word: "biryani"},
-  {from: 0, to: 0, word: "bisibelebaath"},
-  {from: 0, to: 0, word: "pulav"},
-  {from: 0, to: 0, word: "upma"},
-  {from: 0, to: 0, word: "vangibaath"},
-  {from: 0, to: 0, word: "venpongal"}
+  {from: 0, to: 0, word: "biryani", text: "Biryani"},
+  {from: 0, to: 0, word: "bisibelebaath", text: "Bisibele Baath"},
+  {from: 0, to: 0, word: "pulav", text: "Pulav"},
+  {from: 0, to: 0, word: "upma", text: "Upma"},
+  {from: 0, to: 0, word: "vangibaath", text: "Vangibaath"},
+  {from: 0, to: 0, word: "venpongal", text: "Venpongal"}
 ]};
 
 var gram_sides = {
   numStates: 1, start: 0, end: 0, transitions: [
-  {from: 0, to: 0, word: "achaar"},
-  {from: 0, to: 0, word: "dahi"},
-  {from: 0, to: 0, word: "raita"}
+  {from: 0, to: 0, word: "achaar", text: "Achaar"},
+  {from: 0, to: 0, word: "dahi", text: "Dahi"},
+  {from: 0, to: 0, word: "raita", text: "Raita"}
 ]};
 
 var gram_south = {
   numStates: 1, start: 0, end: 0, transitions: [
-  {from: 0, to: 0, word: "adai"},
-  {from: 0, to: 0, word: "avial"},
-  {from: 0, to: 0, word: "dosa"},
-  {from: 0, to: 0, word: "uthappam"}
+  {from: 0, to: 0, word: "adai", text: "Adai"},
+  {from: 0, to: 0, word: "avial", text: "Avial"},
+  {from: 0, to: 0, word: "dosa", text: "Dosa"},
+  {from: 0, to: 0, word: "uthappam", text: "Uthappam"}
 ]};
 
 var gram_vegetables = {
   numStates: 1, start: 0, end: 0, transitions: [
-  {from: 0, to: 0, word: "aloo"},
-  {from: 0, to: 0, word: "baingan"},
-  {from: 0, to: 0, word: "bhindi"},
-  {from: 0, to: 0, word: "channa"},
-  {from: 0, to: 0, word: "gajar"},
-  {from: 0, to: 0, word: "gobi"},
-  {from: 0, to: 0, word: "matar"},
-  {from: 0, to: 0, word: "palak"},
-  {from: 0, to: 0, word: "saag"}
+  {from: 0, to: 0, word: "aloo", text: "Aloo"},
+  {from: 0, to: 0, word: "baingan", text: "Baingan"},
+  {from: 0, to: 0, word: "bhindi", text: "Bhindi"},
+  {from: 0, to: 0, word: "channa", text: "Channa"},
+  {from: 0, to: 0, word: "gajar", text: "Gajar"},
+  {from: 0, to: 0, word: "gobi", text: "Gobi"},
+  {from: 0, to: 0, word: "matar", text: "Matar"},
+  {from: 0, to: 0, word: "palak", text: "Palak"},
+  {from: 0, to: 0, word: "saag", text: "Saag"}
 ]};
 
 var gram_vegetarian = {
   numStates: 1, start: 0, end: 0, transitions: [
-  {from: 0, to: 0, word: "chole"},
-  {from: 0, to: 0, word: "dal"},
-  {from: 0, to: 0, word: "idli"},
-  {from: 0, to: 0, word: "jalfrezi"},
-  {from: 0, to: 0, word: "rasam"},
-  {from: 0, to: 0, word: "sambar"}
+  {from: 0, to: 0, word: "chole", text: "Chole"},
+  {from: 0, to: 0, word: "dal", text: "Dal"},
+  {from: 0, to: 0, word: "idli", text: "Idli"},
+  {from: 0, to: 0, word: "jalfrezi", text: "Jal Frezi"},
+  {from: 0, to: 0, word: "rasam", text: "Rasam"},
+  {from: 0, to: 0, word: "sambar", text: "Sambar"}
 ]};
-
-
 
 var grammars = [
   {title: "Appetizers", g: gram_appetizer}, 

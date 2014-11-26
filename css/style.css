@@ -17,3 +17,8 @@
 .button-xlarge {
     font-size: 125%;
 }
+
+.banner {
+    background-image: url("../img/elephant.png");
+    background-repeat: repeat-x;
+}

@@ -5,61 +5,48 @@
     <title>AamMango</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
     <!--[if lte IE 8]>
     <link rel="stylesheet" href="css/layouts/side-menu-old-ie.css">
-<![endif]-->
-<!--[if gt IE 8]><!-->
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
     <link rel="stylesheet" href="css/layouts/side-menu.css">
-<!--<![endif]-->
+    <!--<![endif]-->
+    <link rel="stylesheet" href="css/pure.css">
     <link rel="stylesheet" href="css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
-  <body>
-
+  <body class="pure-skin-mine">
     <div>
-
-        <div id="main">
-            <div class="header">
-                <h1>AamMango</h1>
-                <h2>Web Speech Recognizer</h2>
-            </div>
-
-            <div class="content">
-                <h2 class="content-subhead">Categories</h2>
-                <p>
-                  <!-- <div class="pure-g">
-                    <button class="pure-button">Numbers</button>
-                    <button class="pure-button">Appetizers</button>
-                    <button class="pure-button">Beverages</button>
-                    <button class="pure-button">Breads</button>
-                    <button class="pure-button">Curries</button>
-                    <button class="pure-button">Desserts</button>
-                    <button class="pure-button">Proteins</button>
-                    <button class="pure-button">Rice Dishes</button>
-                    <button class="pure-button">Sides</button>
-                    <button class="pure-button">South Indian Dishes</button>
-                    <button class="pure-button">Vegetables</button>
-                    <button class="pure-button">Vegetarian Dishes</button>
-                    <button class="pure-button">No Category</button>
-                  </> -->
-                  <p>
-                    <select class="form-control" id="grammars"></select>
-                  </p>
-                  <button class="pure-button pure-button-primary" id="startBtn">Start</button>
-                  <button class="pure-button pure-button-primary" id="stopBtn">Stop</button>
-                  <span id="recording-indicator" style="border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; width: 20px; height: 20px; background: red;"></span>
-                  <h2>Recognition Output</h2>
-                  <div id="output" style="height:150px;overflow:auto;" >
-                  </div>
-                  <h2>Status</h2>
-                  <div id="current-status">Loading page</div>
-                </p>
-            </div>
+      <div id="main">
+        <div class="header">
+          <img src="https://raw.githubusercontent.com/pramodsum/AamMango/master/AamMango/logo.png"/>
+          <h2>A Hindi Web Speech Recognizer</h2>
         </div>
+        <div class="content">
+          <h2 class="content-subhead">Categories</h2>
+          <p>
+            <p>
+              <select class="form-control" id="grammars" onchange="updateWordList()"></select>
+            </p>
+            <button class="pure-button pure-button-primary" id="startBtn">Start</button>
+            <button class="pure-button pure-button-primary" id="stopBtn">Stop</button>
+            <span id="recording-indicator" style="border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; width: 20px; height: 20px; background: red;"></span>
+            <div class="row">
+              <div class="col-sm-6">
+                <h2>Recognition Output</h2>
+                <div id="output" ></div>
+              </div>
+              <div class="col-sm-6">
+                <h2>Words in Category</h2>
+                <div id="words" ></div>
+              </div>
+            </div>
+            <h2>Status</h2>
+            <div id="current-status">Loading page</div>
+          </p>
+        </div>
+      </div>
     </div>
     <script src="js/script.js"></script>
     <!-- These are the two JavaScript files you must load in the HTML,
@@ -67,4 +54,4 @@
     <script src="js/audioRecorder.js"></script>
     <script src="js/callbackManager.js"></script>
   </body>
-</html>
+  </html>
